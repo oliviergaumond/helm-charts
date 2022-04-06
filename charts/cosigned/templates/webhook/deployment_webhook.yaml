@@ -31,7 +31,7 @@ spec:
         volumeMounts:
         - mountPath: /.sigstore
           name: local-cache
-         - mountPath: /.ecr
+        - mountPath: /.ecr
           name: ecr-cache
         env:
         - name: SYSTEM_NAMESPACE
