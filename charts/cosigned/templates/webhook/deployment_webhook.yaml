@@ -31,6 +31,8 @@ spec:
         volumeMounts:
         - mountPath: /.sigstore
           name: local-cache
+         - mountPath: /.ecr
+          name: ecr-cache
         env:
         - name: SYSTEM_NAMESPACE
           valueFrom:
@@ -100,6 +102,8 @@ spec:
         {{- end }}
       volumes:
       - name: local-cache
+        emptyDir: {}
+      - name: ecr-cache
         emptyDir: {}
       {{- if .Values.webhook.securityContext.enabled }}      
       securityContext:
