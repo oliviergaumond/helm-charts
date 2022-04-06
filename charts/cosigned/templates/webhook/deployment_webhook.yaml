@@ -98,10 +98,10 @@ spec:
         {{- with .Values.webhook.podSecurityContext }}
         {{- toYaml . | nindent 10}}
         {{- end }}
-      {{- if .Values.webhook.securityContext.enabled }}
       volumes:
       - name: local-cache
         emptyDir: {}
+      {{- if .Values.webhook.securityContext.enabled }}      
       securityContext:
         {{- with .Values.webhook.securityContext }}
         {{- toYaml . | nindent 8}}
