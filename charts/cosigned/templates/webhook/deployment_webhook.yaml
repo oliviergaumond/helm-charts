@@ -28,6 +28,9 @@ spec:
       - name: {{ template "cosigned.name" . }}-{{ .Values.webhook.name }}
         image: "{{ template "cosigned.image" .Values.webhook.image }}"
         imagePullPolicy: "{{ .Values.webhook.image.pullPolicy }}"
+        volumeMounts:
+        - mountPath: /.sigstore
+          name: local-cache
         env:
         - name: SYSTEM_NAMESPACE
           valueFrom:
@@ -96,6 +99,9 @@ spec:
         {{- toYaml . | nindent 10}}
         {{- end }}
       {{- if .Values.webhook.securityContext.enabled }}
+      volumes:
+      - name: local-cache
+        emptyDir: {}
       securityContext:
         {{- with .Values.webhook.securityContext }}
         {{- toYaml . | nindent 8}}
